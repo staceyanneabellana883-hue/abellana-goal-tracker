@@ -1,12 +1,23 @@
 import { useState } from 'react'
 import { StyleSheet, Text, TextInput, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useGoals } from '../../hooks/useGoals'
+import { useRouter } from 'expo-router'
 
 const Create = () => {
   const [goal, setGoal] = useState('')
+  const { createGoal } = useGoals()
+  const router = useRouter
+
   
   const handleSubmit = async () => {
-
+    await createGoal({
+      goal,
+      progress:0
+    })
+    setGoal('')
+    Keyboard.dismiss()
+    router.push('/goals')
   }
 
   return (
@@ -42,12 +53,12 @@ const styles = StyleSheet.create({
     width: 300,
     backgroundColor: 'white',
     padding: 20,
-    borderRadius: 8,
+    borderRadius: 50,
     marginVertical: 40,
   },
   button: {
     padding: 18,
-    backgroundColor: '#21cc8d',
+    backgroundColor: '#d680e2ff',
     color: 'white',
     borderRadius: 8,
   }
